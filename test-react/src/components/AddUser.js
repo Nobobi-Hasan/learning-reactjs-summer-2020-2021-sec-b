@@ -1,18 +1,42 @@
-import {useParams} from 'react-router-dom';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-const AddUser = ({status})=>{
-    const {id:eid} = useParams();
-    return(
+const AddUser = ({ status, callback }) => {
+    const { id: eid } = useParams();
+    const [id, setId] = useState("");
+    const [name, setName] = useState("");
+    const [dept, setDept] = useState("");
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        callback({ id: id, name: name, dept: dept });
+    };
+    return (
         <div>
-           <h2> This is {status} user page id: {eid} </h2>
-           <form>
-                Name: <input type='text' name='name' value=""/> <br/>
-                ID: <input type='text' name='id' value="" /><br/>
-                Dept: <input type='text' name='dpet' value="" /><br/>
-                <input type='submit' value={status==='add'?'Create':'Update'}/>
+            <h2>
+                This is {status} user page id: {eid}
+            </h2>
+            <form onSubmit={onSubmit}>
+                <label>
+                    Id:
+                    <input type="number" name="name" value={id} onChange={(e) => setId(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                    Name:
+                    <input  type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                </label>
+                <br />
+                <label>
+                    Department:
+                    <input type="text" name="name" value={dept} onChange={(e) => setDept(e.target.value)}
+                    />
+                </label>
+                <br />
+                <input type="submit" value="Submit" />
             </form>
-        </div> 
+        </div>
     );
-}
+};
 
 export default AddUser;
